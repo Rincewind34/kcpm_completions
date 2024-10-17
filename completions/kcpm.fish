@@ -20,6 +20,10 @@ function __fish_kcpm_phraselibs
     kcpm --no-update phraselibs 2> /dev/null | sed 's/$/\t/'
 end
 
+function __fish_kcpm_apps
+    kcpm --no-update apps 2> /dev/null | sed 's/$/\t/'
+end
+
 
 
 ### install
@@ -29,7 +33,8 @@ complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; 
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'install'       -d "Install sample libraries."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'check'         -d "Checks if libraries are installed."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'copy-to-drive' -d "Copies installed libraries to drive."
-complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'validate'      -d "Checks integrity of registered libraires."
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'validate'      -d "Checks integrity of registered libraries."
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'list-auth'     -d "Lists libraries that need native access authorization."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from install"        --long 'dry'      -d "Perform all steps without actually installing them."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from install"        --long 'force'    -d "Do not check if specified libraries are already installed."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from install"        --require-parameter --arguments "(__fish_kcpm_libraries)"
@@ -41,6 +46,9 @@ complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; 
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from copy-to-drive"  --require-parameter --arguments "(__fish_kcpm_libraries)"
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from validate"       --long 'verbose'  -d "Enable more verbose mode."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from validate"       --require-parameter --arguments "(__fish_kcpm_libraries)"
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from list-auth"      --long 'all'      -d "Check all known libraries"
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from list-auth"      --long 'package'  -d "Check libraries in package"
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from list-auth"      --require-parameter --arguments "(__fish_kcpm_libraries)"
 
 
 
@@ -55,6 +63,16 @@ complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command phraselibs;
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command phraselibs; and __fish_seen_subcommand_from install"        --long 'missing'     --require-parameter --arguments "(__fish_kcpm_phraselibs)"    -d "Install all missing song-instruments."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command phraselibs; and __fish_seen_subcommand_from install"        --long 'all'         --require-parameter --arguments "(__fish_kcpm_phraselibs)"    -d "Install entire phrase sample library."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command phraselibs; and __fish_seen_subcommand_from install"        --long 'setup-only'  --require-parameter --arguments "(__fish_kcpm_phraselibs)"    -d "Setup phrase sample library without downloading any sample data."
+
+
+
+### apps
+set --local 'appsCommands' install publish
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_needs_command" --arguments 'apps' -d "Manage your KeyComp team applications."
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command apps; and not __fish_seen_subcommand_from $appsCommands" --arguments 'install'       -d "Install or update an application."
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command apps; and not __fish_seen_subcommand_from $appsCommands" --arguments 'publish'       -d "Upload/release a new version of your application."
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command apps; and __fish_seen_subcommand_from publish"       --long 'dry'  -d "Do not perform the upload"
+complete -c 'kcpm' --condition "__fish_kcpm_using_command apps; and __fish_seen_subcommand_from publish"       --require-parameter --arguments "(__fish_kcpm_apps)"
 
 complete --command 'kcpm' --no-files --arguments '(
     set --global __fish_kcpm_at_root true
