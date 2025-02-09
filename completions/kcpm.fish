@@ -31,6 +31,7 @@ set --local librariesCommands install check create copy-to-drive validate
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_needs_command" --arguments 'libraries' -d "Manage your sample libraries."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --long 'help'               -d "Print detailed help about libraries subcommand."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'install'       -d "Install sample libraries."
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'upload'        -d "Upload sample libraries."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'check'         -d "Checks if libraries are installed."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'copy-to-drive' -d "Copies installed libraries to drive."
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and not __fish_seen_subcommand_from $librariesCommands" --arguments 'validate'      -d "Checks integrity of registered libraries."
@@ -49,6 +50,7 @@ complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; 
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from list-auth"      --long 'all'      -d "Check all known libraries"
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from list-auth"      --long 'package'  -d "Check libraries in package"
 complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from list-auth"      --require-parameter --arguments "(__fish_kcpm_libraries)"
+complete --no-files -c 'kcpm' --condition "__fish_kcpm_using_command libraries; and __fish_seen_subcommand_from upload"         --require-parameter --arguments "(__fish_kcpm_libraries)"
 
 
 
